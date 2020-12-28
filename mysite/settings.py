@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
-    'news'
+    'news',
 ]
 
 AUTH_USER_MODEL='account.User'
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,7 +84,7 @@ DATABASES = {
         'PASSWORD': 'password',
         'HOST': '127.0.0.1',
         'PORT': '5432',
-        'NAME': 'db_std_door_9'
+        'NAME': 'db_std_door_23'
 
     }
 }

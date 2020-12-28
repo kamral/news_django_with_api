@@ -11,3 +11,26 @@ class News(models.Model):
                                    verbose_name='Время обновления')
     is_published=models.BooleanField(default=True)
     photo=models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name='Фото')
+    category=models.ForeignKey('Category',on_delete=models.CASCADE)
+
+
+
+    def __str__(self):
+        return self.title
+
+
+    class Meta:
+        verbose_name='Новость'
+        verbose_name_plural='Новости'
+        ordering=['-created_at']
+
+
+class Category(models.Model):
+    title=models.CharField(max_length=100,verbose_name='Наименование',db_index=True)
+
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name='Category'
