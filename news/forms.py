@@ -1,30 +1,25 @@
 from django import forms
 
-from .models import Category
+from .models import Category,News
 
 
-class NewsForm(forms.Form):
-    title = forms.CharField(max_length=100,label='Название',
-                            widget=forms.TextInput(
-                                attrs={'class':'form-control'}
-                            ))
-    content = forms.CharField(required=False,label='Текст:',
-                              widget=forms.Textarea(
-                                  attrs={'rows':5,
-                                      'class': 'form-control'}
-                              )
-                              )
-    is_published = forms.BooleanField(label='Опубликованно',
-                                      initial=True,
-                                      widget=forms.TextInput(
-                                          attrs={'class': 'form-control'}
-                                      )
-                                      )
-    category = forms.ModelChoiceField(queryset=Category.objects.all(),
-                                      label='Категория',
-                                      empty_label='Выберите Категорию',
-                                      widget=forms.Select(
-                                          attrs={'class': 'form-control'}
-                                      )
-                                      )
+class NewsForm(forms.ModelForm):
 
+    class Meta:
+        model=News
+        fields=['title','content','category','is_published','photo']
+        widgets={
+            'title':forms.TextInput(attrs={
+                'class':'form-control'
+            }),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows':5
+            }),
+            'is_published': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'category': forms.Select(attrs={
+                'class': 'form-control'
+            })
+        }

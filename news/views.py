@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import News,Category
 # Create your views here.
 from .forms import NewsForm
+from django.shortcuts import render, get_object_or_404  # render page, return data or 404 page
+from .models import News
+from django.http import HttpResponseRedirect
 
 def index(request):
     news=News.objects.all()
@@ -38,12 +41,13 @@ def view_news(request,news_id):
 def add_news(request):
     if request.method == 'POST':
         # отправляем форму с заполнеными полями
-        form=NewsForm(request.POST)
+        form=NewsForm(request.POST, request.FILES)
         if form.is_valid():
             # если форма прошла валидацию, то создаем словарь
             # cleaned_data. в cleaneda_data попадают очишенные данные
             # которые прошли после валиадации. Из нее можно сохранить данные
-            news=News.objects.create(**form.cleaned_data)
+            # news=News.objects.create(**form.cleaned_data)
+            news=form.save()
             return redirect(news)
 
     else:

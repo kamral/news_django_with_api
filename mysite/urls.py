@@ -22,7 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('news.urls')),
     path('api/account/',include('account.api.urls')),
-    path('api/news/', include('news.api.urls'))
+    path('api/news/', include('news.api.urls')),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 
 ]
 
