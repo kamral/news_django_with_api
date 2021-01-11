@@ -7,7 +7,8 @@ from .models import News
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView,DetailView,CreateView
 from django.urls import reverse_lazy
-
+from .utils import  MyMixin
+from django.core.paginator import Paginator
 
 
 # def index(request):
@@ -22,14 +23,14 @@ from django.urls import reverse_lazy
 #     return render(request,'news/index.html',context=context)
 
 
+
+
+
 class HomeNewsView(ListView):
     model=News
     template_name = 'news/for_class/news_list.html'
-
-    # отображаем только те, которые опубликованны
-    def get_queryset(self):
-        return News.objects.filter(is_published='True')
-
+    paginate_by = 2
+    queryset = News.objects.all()
 
 #
 #

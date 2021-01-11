@@ -1,7 +1,7 @@
 from django import template
 # нужна для неповторения кода использования категории в функциях
 from news.models import Category
-
+from django.db.models import Count
 
 register=template.Library()
 # обрабатывает категории
@@ -13,5 +13,7 @@ def get_categories():
 # обрабатывает и выводит категории
 @register.inclusion_tag('news/list_categories.html')
 def show_categories():
-    categories=Category.objects.all()
+    # считает количество новостей в каждой группе, в случае если там нет,
+    # то он не выведет групу
+    categories=Category.objects.annotate(cnt=Count('news')).filter(cnt__gt=0)
     return {'categories':categories}
